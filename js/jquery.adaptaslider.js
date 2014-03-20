@@ -55,7 +55,7 @@
 
 			// Custom
 			customSetup         : function(slider){},               // (req: mode=custom)
-			customTransition    : function(slider, fromSlide, toSlide, time, easing, callback){ callback.call(this); }, // You MUST invoke the callback! (req: mode=custom) 
+			customTransition    : function(slider, fromSlide, toSlide, time, easing, callback){ callback.call(this); }, // You MUST invoke the callback! (req: mode=custom)
 
 			// Debug
 			verbose             : false         // If true, log to JavaScript console; leave false for production
@@ -104,7 +104,7 @@
 
 		// Add reverse reference to the DOM object
 		// This prevent multiple instances, but also
-		// provides a way to access the plugin via 
+		// provides a way to access the plugin via
 		// element.data('adaptaSlider').publicMethod() or
 		// element.data('adaptaSlider').settings.propertyName
 		self.$slider.data(pluginName, self);
@@ -120,7 +120,7 @@
 			// Setup initial state
 			self.currentSlide = s.startSlide;
 			self.update();
-			
+
 			// Trigger on loaded callback
 			onLoadedCallback();
 
@@ -214,10 +214,8 @@
 		};
 
 		self.setCurrentSelect = function() {
-			if (s.verbose) {
-				console.log('as: setCurrentSelect()');
-				console.group('changing active select button...');
-			}
+			debug.log('as: setCurrentSelect()');
+			debug.group('changing active select button...');
 			if (self.$selectButton) {
 				debug.log('setting selectButton:' + self.currentSlide + ' to active');
 				self.$selectButton.removeClass(s.activeSelectClass);
@@ -298,7 +296,7 @@
 					debug.log('creating prevButton');
 
 					self.$prevButton = $(s.prevButton);
-					
+
 					// If constructor is provided, append to prevButton element
 					if (s.prevHTML) {
 						if (typeof s.prevHTML == 'string') {
@@ -319,13 +317,13 @@
 				else {
 					debug.warn('prevButton not specified');
 				}
-				
+
 				// Setup next button
 				if (s.nextButton && $(s.nextButton).length) {
 					debug.log('creating nextButton');
 
 					self.$nextButton = $(s.nextButton);
-					
+
 					// If constructor is provided, append to prevButton element
 					if (s.nextHTML) {
 						//self.$nextButton = self.$nextButton.append(s.nextHTML);
@@ -348,13 +346,13 @@
 				else {
 					debug.warn('nextButton not specified');
 				}
-				
+
 				// Setup select buttons
 				if (s.selectButton && $(s.selectButton).length) {
 					debug.log('creating selectButton');
 
 					self.$selectButton = $(s.selectButton);
-					
+
 					// If constructor is provided, append to selectButton element
 					if (s.selectHTML) {
 						if (typeof s.selectHTML == 'string') {
@@ -406,12 +404,12 @@
 			}
 			else {
 				if (s.verbose) {
-					console.group('not creating controls');
+					debug.group('not creating controls');
 					if (self.numSlides === 0)
-						console.warn('only 1 slide, controls not created')
+						debug.warn('only 1 slide, controls not created');
 					else
-						console.log('useControls set to false');
-					console.groupEnd();
+						debug.log('useControls set to false');
+					debug.groupEnd();
 				}
 			}
 		};
@@ -420,10 +418,8 @@
 		var animationSetup = function() {
 			debug.log('as: animationSetup()');
 			if (s.animate) {
-				if (s.verbose) {
-					console.group('setting up slider elements...')
-					console.log('mode = ' + s.mode);
-				}
+				debug.group('setting up slider elements...')
+				debug.log('mode = ' + s.mode);
 				// Mode select
 				switch (s.mode.charAt(0)) {
 					case 'c': // custom
@@ -562,7 +558,7 @@
 
 		// Initialize
 		return init();
-		
+
 	};
 
 	// Add plugin to jQuery
@@ -581,16 +577,16 @@
 
 		//return this;
 	};
-	
+
 	// Global utility functions
-	
+
 	// Return integer modulo
 	function modInt(num, denom) {
 		//if(num > 0) return Math.floor(num % denom);
 		//else return Math.ceil(num % denom);
 		return ((num % denom) + denom) % denom;
 	}
-	
+
 	// Return repeated string
 	function repeatString(str, count) {
 		return new Array(count+1).join(str);
@@ -617,5 +613,5 @@
 		}
 		return valid;
 	}
-	
+
 })(jQuery);
