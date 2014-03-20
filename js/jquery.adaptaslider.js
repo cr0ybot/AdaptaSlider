@@ -1,5 +1,5 @@
 /*
- * AdaptaSlider v1.0.0
+ * AdaptaSlider v1.0.1
  * http://github.com/cr0ybot/adaptaslider
  *
  * Made by Cory Hughart
@@ -451,6 +451,7 @@
 						});
 						self.$slides.css({
 							'display': 'inline-block',
+							'white-space': 'normal',
 							'width': '100%',
 							'font-size': '16px' // reset font size
 						});
