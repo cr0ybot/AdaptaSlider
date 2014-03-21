@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+    <title>AdaptaSlider: Default Use</title>
+    <meta name="author" content="Cory Hughart, coryhughart.com" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+        }
+       .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+        ul.nav {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+        }
+        ul.nav li {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 0;
+        }
+        #slider {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        #slider img {
+            width: 100%;
+        }
+        #slider li {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        #slider li.current {
+            display: block;
+        }
+        @media only screen and (min-width: 1138px) {
+            .container {
+                width: 1024px;
+            }
+        }
+    </style>
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <nav>
+        <ul class="nav">
+            <li>Default</li>
+            <li><a href="example_basic.html">Basic</a></li>
+            <li><a href="example_create-controls.html">Create Controls</a></li>
+            <li><a href="example_advanced.html">Advanced</a></li>
+        </ul>
+    </nav>
+    <div class="slider-wrapper">
+    	<ul id="slider">
+    		<li class="current"><img src="example/1.jpg"/></li>
+    		<li><img src="example/2.jpg"/></li>
+    		<li><img src="example/3.jpg"/></li>
+    		<li><img src="example/4.jpg"/></li>
+    	</ul>
+    </div>
+    <div class="info">
+        <h2>AdaptaSlider: Default Use</h2>
+        <p>Default usage with no options. As you can see, sliding plain &lt;img&gt; elements gets a bit weird if the images aren't exactly the same size.</p>
+        <p>Technically, you should at least set <b>useControls: false</b> if you don't want any controls so that it doesn't bother checking for them.</p>
+    </div>
+</div>
+
+<script src="js/jquery.adaptaslider.js"></script>
+<script>
+	// $(document).ready equivalent
+	$(function() {
+        $('#slider').adaptaSlider();
+    });
+</script>
+
+</body>
+</html>
