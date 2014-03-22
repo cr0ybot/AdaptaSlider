@@ -10,10 +10,14 @@
     <style type="text/css">
         body {
             font-family: sans-serif;
+            margin: 0;
         }
        .container {
             width: 90%;
             margin: 0 auto;
+        }
+        .header h1 {
+            text-align: center;
         }
         ul.nav {
             list-style: none;
@@ -51,20 +55,23 @@
 </head>
 <body>
 <div class="container">
+    <header class="header">
+        <h1><a href="../index.html">AdaptaSlider</a></h1>
+    </header>
     <nav>
         <ul class="nav">
             <li>Default</li>
-            <li><a href="example_basic.html">Basic</a></li>
-            <li><a href="example_create-controls.html">Create Controls</a></li>
-            <li><a href="example_advanced.html">Advanced</a></li>
+            <li><a href="basic.html">Basic</a></li>
+            <li><a href="create-controls.html">Create Controls</a></li>
+            <li><a href="advanced.html">Advanced</a></li>
         </ul>
     </nav>
     <div class="slider-wrapper">
     	<ul id="slider">
-    		<li class="current"><img src="example/1.jpg"/></li>
-    		<li><img src="example/2.jpg"/></li>
-    		<li><img src="example/3.jpg"/></li>
-    		<li><img src="example/4.jpg"/></li>
+    		<li class="current"><img src="../img/1.jpg"/></li>
+    		<li><img src="../img/2.jpg"/></li>
+    		<li><img src="../img/3.jpg"/></li>
+    		<li><img src="../img/4.jpg"/></li>
     	</ul>
     </div>
     <div class="info">
@@ -74,7 +81,7 @@
     </div>
 </div>
 
-<script src="js/jquery.adaptaslider.js"></script>
+<script src="../js/jquery.adaptaslider.js"></script>
 <script>
 	// $(document).ready equivalent
 	$(function() {

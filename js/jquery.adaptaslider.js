@@ -55,7 +55,9 @@
 
 			// Custom
 			customSetup         : function(slider){},               // (req: mode=custom)
-			customTransition    : function(slider, fromSlide, toSlide, time, easing, callback){ callback.call(this); }, // You MUST invoke the callback! (req: mode=custom)
+			customTransition    : function(slider, fromSlide, toSlide, time, easing, callback){
+				setTimeout(callback, time, this);
+			}, // You MUST invoke the callback! (req: mode=custom)
 
 			// Debug
 			verbose             : false         // If true, log to JavaScript console; leave false for production
@@ -108,6 +110,29 @@
 		// element.data('adaptaSlider').publicMethod() or
 		// element.data('adaptaSlider').settings.propertyName
 		self.$slider.data(pluginName, self);
+
+		// Object containing all animations
+		self.animate = {
+			// Fade transition
+			fade: function(fromSlide, toSlide, time, easing, callback) {
+				var f = self.$slides.eq(fromSlide);
+				var t = self.$slides.eq(toSlide);
+				t.css('visibility', 'visible');
+				f.fadeTo(time, 0, easing, function() {
+					f.css('visibility', 'hidden');
+				});
+				t.fadeTo(time, 1, easing, callback);
+			},
+
+			// Slide transition
+			slide: function(fromSlide, toSlide, time, easing, callback) {
+				var pos = -toSlide*100;
+				debug.log('slide to position: %d%', pos);
+				self.$slides.eq(0).animate({
+					'margin-left': pos + '%'
+				}, time, easing, callback);
+			}
+		}
 
 		// Private constructor, only called from within
 		var init = function() {
@@ -465,6 +490,7 @@
 		// Handles transitions between slides
 		var transition = function(fromSlide, toSlide) {
 			debug.log('as: transition(%d, %d)', fromSlide, toSlide);
+
 			if (s.animate && !self.animating) {
 				debug.group('animating...');
 				self.animating = true;
@@ -476,12 +502,12 @@
 						break;
 					case 'f': // fade
 						debug.log('animation will fade');
-						fadeTransition(fromSlide, toSlide, s.transitionTime, s.easing, self.doneAnimating);
+						self.animate.fade(fromSlide, toSlide, s.transitionTime, s.easing, self.doneAnimating);
 						break;
 					case 's': // slide
 					default: // If input is not understood, slide is default
 						debug.log('animation will slide');
-						slideTransition(fromSlide, toSlide, s.transitionTime, s.easing, self.doneAnimating);
+						self.animate.slide(fromSlide, toSlide, s.transitionTime, s.easing, self.doneAnimating);
 						break;
 					// Room for future transition types?
 				}
@@ -490,28 +516,6 @@
 			else if (self.animating) {
 				debug.warn('as: animation is already ocurring!');
 			}
-		};
-
-		// TODO: contain transition functions in object
-
-		// Fade transition
-		var fadeTransition = function(fromSlide, toSlide, time, easing, callback) {
-			var f = self.$slides.eq(fromSlide);
-			var t = self.$slides.eq(toSlide);
-			t.css('visibility', 'visible');
-			f.fadeTo(time, 0, easing, function() {
-				f.css('visibility', 'hidden');
-			});
-			t.fadeTo(time, 1, easing, callback);
-		};
-
-		// Slide transition
-		var slideTransition = function(fromSlide, toSlide, time, easing, callback) {
-			var pos = -toSlide*100;
-			debug.log('slide to position: %d%', pos);
-			self.$slides.eq(0).animate({
-				'margin-left': pos + '%'
-			}, time, easing, callback);
 		};
 
 		// Handles changing slide classes, initiates transition, and callbacks

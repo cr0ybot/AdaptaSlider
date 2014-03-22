@@ -2,19 +2,23 @@
 <html>
 <head>
 	<meta charset="UTF-8" />
-	<title>AdaptaSlider: Advanced Use</title>
+	<title>AdaptaSlider</title>
 	<meta name="author" content="Cory Hughart, coryhughart.com" />
 	<meta name="description" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
 
 	<style type="text/css">
 		body {
-			font-family: sans-serif;
-		}
-		.container {
-			width: 90%;
-			margin: 0 auto;
-		}
+            font-family: sans-serif;
+            margin: 0;
+        }
+       .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+        .header h1 {
+            text-align: center;
+        }
 		ul.nav {
 			list-style: none;
 			text-align: center;
@@ -116,8 +120,6 @@
 			list-style: none;
 			margin: 0;
 			padding: 0;
-			height: 0;
-			padding-bottom: 66%;
 			background-color: #333;
 			position: relative;
 			overflow: hidden;
@@ -126,43 +128,20 @@
 			width: 100%;
 		}
 		#slider li {
-			position: absolute;
-			top: 0;
-			left: 0;
+			position: relative;
 			display: none;
 			width: 100%;
-			height: 100%;
-			/*padding-bottom: 66%;*/
+			height: 0;
+			padding-bottom: 66%;
 			background-repeat: no-repeat;
 			background-position: center center;
 			background-size: 100% auto;
-
-			-webkit-transition-property: top, left, opacity;
-			-moz-transition-property: top, left, opacity;
-			-o-transition-property: top, left, opacity;
-			transition-property: top, left, opacity;
-
-			-webkit-transition-duration: 1s;
-			-moz-transition-duration: 1s;
-			-o-transition-duration: 1s;
-			transition-duration: 1s;
 		}
-		#slider .prev {
-			display: block;
-			top: 100%;
-			opacity: 0;
-			z-index: 3;
-		}
+		#slider .prev {}
 		#slider .current {
 			display: block;
-			opacity: 1;
-			z-index: 2;
 		}
-		#slider .next {
-			display: block;
-			left: 100%;
-			opacity: 0;
-		}
+		#slider .next {}
 		#slider .quote {
 			position: absolute;
 			width: 100%;
@@ -216,35 +195,30 @@
 </head>
 <body>
 <div class="container">
-	<nav>
-		<ul class="nav">
-			<li><a href="example_default.html">Default</a></li>
-			<li><a href="example_basic.html">Basic</a></li>
-			<li><a href="example_create-controls.html">Create Controls</a></li>
-			<li>Advanced</li>
-		</ul>
-	</nav>
+	<header class="header">
+		<h1>AdaptaSlider</h1>
+	</header>
 	<div class="slider-wrapper">
 		<ul id="slider">
-			<li class="current" style="background-image: url(example/1.jpg);">
+			<li class="current" style="background-image: url(img/1.jpg);">
 				<div class="quote">
 					<blockquote>“Extinction is the rule. Survival is the exception.”</blockquote>
 					<p>― Carl Sagan, <i>The Varieties of Scientific Experience: A Personal View of the Search for God</i></p>
 				</div>
 			</li>
-			<li style="background-image: url(example/2.jpg);">
+			<li style="background-image: url(img/2.jpg);">
 				<div class="quote">
 					<blockquote>“...a species must adapt to new conditions in order to survive...the human race consequently finds itself in a new habitat to which it must adapt its thinking.”</blockquote>
 					<p>― Albert Einstein, <i>Only Then Shall We Find Courage</i></p>
 				</div>
 			</li>
-			<li style="background-image: url(example/3.jpg);">
+			<li style="background-image: url(img/3.jpg);">
 				<div class="quote">
 					<blockquote>“It is not the strongest of the species that survives, nor the most intelligent, but rather the one most adaptable to change.”</blockquote>
 					<p>― Never actually said by Darwin, but it's a nice paraphrase</p>
 				</div>
 			</li>
-			<li style="background-image: url(example/4.jpg);">
+			<li style="background-image: url(img/4.jpg);">
 				<div class="quote">
 					<blockquote>“Dinosaurs are extinct today because they lacked opposable thumbs and the brainpower to build a space program.”</blockquote>
 					<p>― Neil deGrasse Tyson, <i>The Sky Is Not the Limit: Adventures of an Urban Astrophysicist</i></p>
@@ -257,36 +231,27 @@
 			<a href="#" class="slider-next"></a>
 		</div>
 	</div>
-	<div class="info">
-		<h2>AdaptaSlider: Advanced Use</h2>
-		<p>Check the page source to see how custom CSS was used to create a new transition.</p>
-	</div>
+	<nav>
+		<ul class="nav">
+			<li><a href="example/default.html">Default</a></li>
+			<li><a href="example/basic.html">Basic</a></li>
+			<li><a href="example/create-controls.html">Create Controls</a></li>
+			<li><a href="example/advanced.html">Advanced</a></li>
+		</ul>
+	</nav>
 </div>
 
 <script src="js/jquery.adaptaslider.js"></script>
 <script>
 	// $(document).ready equivalent
 	$(function() {
-		// store a reference to this instance of adaptaSlider by
-		// chaining .data('adaptaSlider') at the end
-		var sliderAPI = $('#slider').adaptaSlider({
-			mode: 'custom',
-			autoPlay: true,
-			transitionTime: 1000, // time is same as transition time in CSS
+		 $('#slider').adaptaSlider({
 			prevButton: '.slider-prev',
 			nextButton: '.slider-next',
 			selectButton: '.slider-select',
 			selectHTML: '<a href="#" class="select"></a>',
-			selectHTMLNumbers: false,
-			customTransition: function(slider, fromSlide, toSlide, time, easing, callback) {
-				// call callback after time
-				setTimeout(callback, time);
-			},
 			verbose: true
-		}).data('adaptaSlider');
-
-		// Testing to see if the API exists
-		console.log('API exists: %s', sliderAPI.hasOwnProperty('settings'));
+		});
 	});
 </script>
 

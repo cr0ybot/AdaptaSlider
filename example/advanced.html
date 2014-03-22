@@ -1,0 +1,301 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>AdaptaSlider: Advanced Use</title>
+	<meta name="author" content="Cory Hughart, coryhughart.com" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+	<style type="text/css">
+		body {
+            font-family: sans-serif;
+            margin: 0;
+        }
+       .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+        .header h1 {
+            text-align: center;
+        }
+		ul.nav {
+			list-style: none;
+			text-align: center;
+			padding: 0;
+		}
+		ul.nav li {
+			display: inline-block;
+			margin: 0 10px;
+			padding: 0;
+		}
+		.slider-wrapper {
+			position: relative;
+		}
+		.slider-prev,
+		.slider-next {
+			position: absolute;
+			display: block;
+			top: 0;
+			bottom: 0;
+			width: 25%;
+			text-decoration: none;
+			color: #FFF;
+			background-color: transparent;
+			z-index: 99;
+		}
+		.slider-prev::after,
+		.slider-next::after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 50%;
+			margin-top: -15px;
+			width: 0;
+			height: 0;
+			border-width: 15px 30px 15px 30px;
+			border-style: solid;
+			border-color: transparent;
+		}
+		.slider-prev::after {
+			left: 15px;
+			border-right-color: rgba(255,255,255,0.25);
+			border-left-width: 0;
+		}
+		.slider-next::after {
+			right: 15px;
+			border-left-color: rgba(255,255,255,0.25);
+			border-right-width: 0;
+		}
+		.slider-prev:hover,
+		.slider-next:hover {
+			background-color: rgba(255,255,255,0.15);
+		}
+		.slider-prev {
+			left: 0;
+		}
+		.slider-next {
+			right: 0;
+		}
+		.slider-select {
+			position: absolute;
+			display: block;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 30px;
+			text-align: center;
+		}
+		.select {
+			position: relative;
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			text-decoration: none;
+			color: #FFF;
+			z-index: 99;
+		}
+		.select::after {
+			content: '';
+			position: absolute;
+			display: block;
+			top: 50%;
+			left: 50%;
+			width: 10px;
+			height: 10px;
+			margin-top: -5px;
+			margin-left: -5px;
+			border-radius: 5px;
+			background-color: rgba(225,225,225,0.5);
+			box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		}
+		.select.active::after,
+		.select:hover::after {
+			background-color: rgba(255,255,255,0.75);
+		}
+		.active {
+			font-weight: bold;
+		}
+		#slider {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			height: 0;
+			padding-bottom: 66%;
+			background-color: #333;
+			position: relative;
+			overflow: hidden;
+		}
+		#slider img {
+			width: 100%;
+		}
+		#slider li {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: none;
+			width: 100%;
+			height: 100%;
+			/*padding-bottom: 66%;*/
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-size: 100% auto;
+
+			-webkit-transition-property: top, left, opacity;
+			-moz-transition-property: top, left, opacity;
+			-o-transition-property: top, left, opacity;
+			transition-property: top, left, opacity;
+
+			-webkit-transition-duration: 1s;
+			-moz-transition-duration: 1s;
+			-o-transition-duration: 1s;
+			transition-duration: 1s;
+		}
+		#slider .prev {
+			display: block;
+			top: 100%;
+			opacity: 0;
+			z-index: 3;
+		}
+		#slider .current {
+			display: block;
+			opacity: 1;
+			z-index: 2;
+		}
+		#slider .next {
+			display: block;
+			left: 100%;
+			opacity: 0;
+		}
+		#slider .quote {
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+		}
+		#slider .quote blockquote {
+			font-family: serif;
+			font-style: italic;
+			font-weight: bold;
+			font-size: 2em;
+			color: #FFF;
+			text-shadow: 0 0 5px #000, 0 1px 0 #000;
+			margin: 1em;
+		}
+		#slider .quote p {
+			font-family: sans-serif;
+			font-size: 1em;
+			color: #CCC;
+			text-align: right;
+			background-color: rgba(0,0,0,0.33);
+			padding: 5px;
+			margin: 1em;
+		}
+		@media only screen and (max-width: 480px) {
+			#slider .quote blockquote {
+				font-size: 1em;
+				margin: 0.5em;
+			}
+			#slider .quote p {
+				font-size: 0.66em;
+				margin: 0;
+			}
+		}
+		@media only screen and (min-width: 481px) and (max-width: 760px) {
+			#slider .quote blockquote {
+				font-size: 1.5em;
+				margin: 0.75em;
+			}
+			#slider .quote p {
+				font-size: 0.75em;
+				margin: 0.5em;
+			}
+		}
+		@media only screen and (min-width: 1138px) {
+			.container {
+				width: 1024px;
+			}
+		}
+	</style>
+	 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<header class="header">
+		<h1><a href="../index.html">AdaptaSlider</a></h1>
+	</header>
+	<nav>
+		<ul class="nav">
+			<li><a href="default.html">Default</a></li>
+			<li><a href="basic.html">Basic</a></li>
+			<li><a href="create-controls.html">Create Controls</a></li>
+			<li>Advanced</li>
+		</ul>
+	</nav>
+	<div class="slider-wrapper">
+		<ul id="slider">
+			<li class="current" style="background-image: url(../img/1.jpg);">
+				<div class="quote">
+					<blockquote>“Extinction is the rule. Survival is the exception.”</blockquote>
+					<p>― Carl Sagan, <i>The Varieties of Scientific Experience: A Personal View of the Search for God</i></p>
+				</div>
+			</li>
+			<li style="background-image: url(../img/2.jpg);">
+				<div class="quote">
+					<blockquote>“...a species must adapt to new conditions in order to survive...the human race consequently finds itself in a new habitat to which it must adapt its thinking.”</blockquote>
+					<p>― Albert Einstein, <i>Only Then Shall We Find Courage</i></p>
+				</div>
+			</li>
+			<li style="background-image: url(../img/3.jpg);">
+				<div class="quote">
+					<blockquote>“It is not the strongest of the species that survives, nor the most intelligent, but rather the one most adaptable to change.”</blockquote>
+					<p>― Never actually said by Darwin, but it's a nice paraphrase</p>
+				</div>
+			</li>
+			<li style="background-image: url(../img/4.jpg);">
+				<div class="quote">
+					<blockquote>“Dinosaurs are extinct today because they lacked opposable thumbs and the brainpower to build a space program.”</blockquote>
+					<p>― Neil deGrasse Tyson, <i>The Sky Is Not the Limit: Adventures of an Urban Astrophysicist</i></p>
+				</div>
+			</li>
+		</ul>
+		<div class="slider-nav">
+			<a href="#" class="slider-prev"></a>
+			<div class="slider-select"></div>
+			<a href="#" class="slider-next"></a>
+		</div>
+	</div>
+	<div class="info">
+		<h2>AdaptaSlider: Advanced Use</h2>
+		<p>Check the page source to see how custom CSS was used to create a new transition.</p>
+	</div>
+</div>
+
+<script src="../js/jquery.adaptaslider.js"></script>
+<script>
+	// $(document).ready equivalent
+	$(function() {
+		// store a reference to this instance of adaptaSlider by
+		// chaining .data('adaptaSlider') at the end
+		var sliderAPI = $('#slider').adaptaSlider({
+			mode: 'custom',
+			autoPlay: true,
+			transitionTime: 1000, // time is same as transition time in CSS
+			prevButton: '.slider-prev',
+			nextButton: '.slider-next',
+			selectButton: '.slider-select',
+			selectHTML: '<a href="#" class="select"></a>',
+			selectHTMLNumbers: false,
+			customTransition: function(slider, fromSlide, toSlide, time, easing, callback) {
+				// call callback after time
+				setTimeout(callback, time);
+			},
+			verbose: true
+		}).data('adaptaSlider');
+
+		// Testing to see if the API exists
+		console.log('API exists: %s', sliderAPI.hasOwnProperty('settings'));
+	});
+</script>
+
+</body>
+</html>
