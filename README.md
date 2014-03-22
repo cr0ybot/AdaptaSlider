@@ -321,3 +321,8 @@ You now have access to the API through the `sliderAPI` variable (or whatever you
 - `setPlaying(bool)` Turns autoplay on or off
 - `togglePlaying()` Toggles autoplay
 - `doneAnimating()` Used to notify plugin that the animation is finished
+
+To Do
+=====
+
+I'm considering dropping jQuery .animate() transitions. There are some bugs, particularly on older versions of Safari, that would be eliminated if I used CSS transitions. I fear, however, that this change would require adding CSS, which I didn't want to require when I started out writing this. I may just bite the bullet and do it, as it would also provide some succinct examples of how to create your own transitions with CSS.
