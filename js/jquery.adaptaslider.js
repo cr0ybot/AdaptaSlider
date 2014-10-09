@@ -451,10 +451,14 @@
 						s.customSetup.call(self, self.$slider);
 						break;
 					case 'f': // fade
-						self.$slider.css({
-							'display': 'block',
-							'position': 'relative'
-						}).append('<div style="clear: both"/>');
+						// Check if element needs to be set to relative positioning
+						if (self.$slider.css('position') == 'static') {
+							self.$slider.css({
+								'display': 'block',
+								'position': 'relative'
+							});
+						}
+						self.$slider.append('<div style="clear: both"/>');
 						self.$slides.css({
 							'display': 'block',
 							'float': 'left',
@@ -468,12 +472,17 @@
 					case 's': // slide
 					default: // If input is not understood, slide is default
 						self.$slider.css({
-							'display': 'block',
-							'position': 'relative',
 							'white-space': 'nowrap',
 							'font-size': 0, // removes spaces on inline elements
 							'overflow': 'hidden'
 						});
+						// Check if element needs to be set to relative positioning
+						if (self.$slider.css('position') == 'static') {
+							self.$slider.css({
+								'display': 'block',
+								'position': 'relative',
+							});
+						}
 						self.$slides.css({
 							'display': 'inline-block',
 							'white-space': 'normal',
