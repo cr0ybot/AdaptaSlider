@@ -77,11 +77,11 @@ Then load **AdaptaSlider** and call it on a jQuery object at the end of `<body>`
 ```html
 <body>
 	...
-	<script src="js/jquery.AdaptaSlider.js"></script>
+	<script src="js/jquery.adaptaslider.js"></script>
 	<script>
 		// $(document).ready equivalent
 		$(function() {
-			$('#slider').AdaptaSlider();
+			$('#slider').adaptaSlider();
 		});
 	</script>
 </body>
@@ -89,10 +89,10 @@ Then load **AdaptaSlider** and call it on a jQuery object at the end of `<body>`
 
 ### Basic Use
 
-The whole point of this is that you're probably going to want some customization. In that case, call the plugin using the options described above as properties in an object passed as a parameter to `AdaptaSlider()`:
+The whole point of this is that you're probably going to want some customization. In that case, call the plugin using the options described above as properties in an object passed as a parameter to `adaptaSlider()`:
 
 ```javascript
-$('#slider').AdaptaSlider({
+$('#slider').adaptaSlider({
 	mode: 'fade',
 	easing: 'linear',
 	autoPlay: false,
@@ -109,7 +109,7 @@ The most important customizeable feature is the way navigation controls are hand
 If you have already created and styled slider navigation controls to your liking, you can tell **AdaptaSlider** to use them!
 
 ```javascript
-$('#slider').AdaptaSlider({
+$('#slider').adaptaSlider({
 	prevButton: '.prev-button-class',
 	nextButton: '.next-button-class',
 	selectButton: '.select-button-class'
@@ -123,7 +123,7 @@ This will provide functionality to your prev and next buttons and will look for 
 You can also have **AdaptaSlider** programatically create controls for you with the `prevHTML`, `nextHTML`, and `selectHTML` settings. These are simply inputs for HTML strings (opening & closing tags, please) that the script should insert into the element specified by the respective `*Button` setting.
 
 ```javascript
-$('#slider').AdaptaSlider({
+$('#slider').adaptaSlider({
 	prevButton: '.prev-button-container',
 	prevHTML: '<button class="prev">prev</button>',
 	nextButton: '.next-button-container',
